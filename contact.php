@@ -67,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $headers  = "From: " . FROM_NAME . " <" . FROM_EMAIL . ">\r\n";
             $headers .= "Reply-To: {$full_name} <{$reply_to}>\r\n";
+            $headers .= "To: " . LODGE_RECIPIENT_NAME . " <" . LODGE_RECIPIENT_EMAIL . ">\r\n";
             $headers .= "Cc: " . CC_EMAIL . "\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
             $headers .= "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n";
@@ -108,7 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // -f sets the envelope sender so the MTA doesn't reject a mismatched From header
             $extra_params = '-f ' . FROM_EMAIL;
 
-            $sent = mail(LODGE_RECIPIENT_EMAIL, $subject, $body, $headers, $extra_params);
+            $to   = LODGE_RECIPIENT_EMAIL . ', ' . CC_EMAIL;
+            $sent = mail($to, $subject, $body, $headers, $extra_params);
 
             if ($sent) {
 
