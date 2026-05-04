@@ -65,8 +65,8 @@
                     </li>
                 </ul>
                 <div class="mt-3" style="font-size:0.8rem;color:var(--cream-muted);">
-                    <a href="https://www.ncfreemasons.org/" target="_blank">Grand Lodge</a> of<br>
-                    North Carolina A.F. &amp; A.M.
+                    <a href="https://www.ncfreemasons.org/" target="_blank">Grand Lodge of<br>
+                        North Carolina A.F. &amp; A.M.</a>
                 </div>
             </div>
 
