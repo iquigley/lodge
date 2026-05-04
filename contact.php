@@ -379,7 +379,7 @@ require 'includes/header.php';
                     </p>
                     <p style="color:var(--cream-muted);font-size:0.9rem;">
                         <i class="bi bi-calendar-event text-gold me-1"></i>
-                        Meets 1st &amp; 3rd Monday, 7:30 p.m.
+                        Meets 1st &amp; 3rd Monday, 7:00 p.m.
                     </p>
                 </div>
             </div>

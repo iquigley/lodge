@@ -188,7 +188,7 @@
           426 West Market Street &nbsp;&middot;&nbsp; Greensboro, NC 27401
         </p>
         <p style="margin:0 0 16px;font-size:12px;color:#8a8070;">
-          Meets 1st &amp; 3rd Monday &nbsp;&middot;&nbsp; 7:30 p.m.
+          Meets 1st &amp; 3rd Monday &nbsp;&middot;&nbsp; 7:00 p.m.
         </p>
         <p style="margin:0;font-size:11px;color:#4a4535;">
           You are receiving this email because you submitted an inquiry on
