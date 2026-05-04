@@ -67,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $headers  = "From: " . FROM_NAME . " <" . FROM_EMAIL . ">\r\n";
             $headers .= "Reply-To: {$full_name} <{$reply_to}>\r\n";
+            $headers .= "Cc: " . CC_EMAIL . "\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
             $headers .= "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n";
 
@@ -104,12 +105,73 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $subject = "Petition of Interest: {$full_name}";
 
-            if (mail(LODGE_RECIPIENT_EMAIL, $subject, $body, $headers)) {
+            // -f sets the envelope sender so the MTA doesn't reject a mismatched From header
+            $extra_params = '-f ' . FROM_EMAIL;
+
+            $sent = mail(LODGE_RECIPIENT_EMAIL, $subject, $body, $headers, $extra_params);
+
+            if ($sent) {
+
+                // ── Confirmation email to the submitter ──────────────────
+                $first_name = $old['first_name'];
+
+                ob_start();
+                require __DIR__ . '/templates/email-confirmation.php';
+                $confirm_html = ob_get_clean();
+
+                $confirm_plain = "Dear {$first_name},\r\n\r\n"
+                    . "Thank you for reaching out to Guilford Lodge #656. Your inquiry has been\r\n"
+                    . "received and a brother will be in touch with you personally, typically\r\n"
+                    . "within a few business days.\r\n\r\n"
+                    . "WHAT HAPPENS NEXT\r\n"
+                    . "1. A brother will contact you to answer questions and introduce himself.\r\n"
+                    . "2. You may be invited to attend a lodge dinner or open event.\r\n"
+                    . "3. If sponspored, candidates may fill out a formal petition and background process follows, in full confidence.\r\n"
+                    . "Questions? Reply to this email or write to guilford656@gmail.com, or contact our lodge secretary by calling or texting " . CONTACT_PHONE . "\r\n\r\n"
+                        . "Fraternally,\r\n"
+                    . "Guilford Lodge #656, A.F. & A.M.\r\n"
+                    . "426 West Market Street, Greensboro, NC 27401";
+
+                $cb = md5(uniqid(strval(time()), true));
+
+                $confirm_headers  = "From: " . FROM_NAME . " <" . FROM_EMAIL . ">\r\n";
+                $confirm_headers .= "MIME-Version: 1.0\r\n";
+                $confirm_headers .= "Content-Type: multipart/alternative; boundary=\"{$cb}\"\r\n";
+
+                $confirm_body  = "--{$cb}\r\n";
+                $confirm_body .= "Content-Type: text/plain; charset=UTF-8\r\n\r\n";
+                $confirm_body .= $confirm_plain . "\r\n";
+                $confirm_body .= "--{$cb}\r\n";
+                $confirm_body .= "Content-Type: text/html; charset=UTF-8\r\n\r\n";
+                $confirm_body .= $confirm_html . "\r\n";
+                $confirm_body .= "--{$cb}--";
+
+                $confirm_sent = mail(
+                    $reply_to,
+                    "Thank you for your interest in Guilford Lodge #656",
+                    $confirm_body,
+                    $confirm_headers,
+                    '-f ' . FROM_EMAIL
+                );
+
+                if (!$confirm_sent) {
+                    error_log('[Guilford656] Confirmation email to submitter failed. to=' . $reply_to);
+                }
+                // ── End confirmation email ───────────────────────────────
+
                 $_SESSION['csrf_token']    = bin2hex(random_bytes(32));
                 $_SESSION['form_submitted'] = true;
                 header('Location: /confirmation');
                 exit;
             } else {
+                // Log the failure with as much context as possible
+                $sendmail_path = ini_get('sendmail_path');
+                error_log('[Guilford656] mail() returned false.'
+                    . ' sendmail_path=' . ($sendmail_path ?: 'not set')
+                    . ' to=' . LODGE_RECIPIENT_EMAIL
+                    . ' from=' . FROM_EMAIL
+                    . ' php_errormsg=' . (isset($php_errormsg) ? $php_errormsg : 'n/a')
+                );
                 $errors[] = 'There was a problem sending your message. Please email us directly at ' . LODGE_RECIPIENT_EMAIL . '.';
             }
         }
