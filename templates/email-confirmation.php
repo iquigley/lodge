@@ -167,7 +167,7 @@
           directly at
           <a href="mailto:guilford656@gmail.com" style="color:#c9a227;text-decoration:none;">
             guilford656@gmail.com
-          </a>, or call/text our lodge secretary, <?= LODGE_SECRETARY; ?> at <?= CONTACT_PHONE; ?> directly.
+          </a>, or call/text our lodge secretary, <?= LODGE_SECRETARY; ?>, at <?= CONTACT_PHONE; ?>.
         </p>
 
       </td>
