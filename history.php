@@ -7,7 +7,7 @@ require 'includes/header.php';
 ?>
 
 <!-- ── Page Hero ─────────────────────────────────────────────────────────── -->
-<header class="page-hero pattern-bg" style="padding-top:9rem;">
+<header class="page-hero pattern-bg" style="padding-top:9rem;--page-bg:url('/images/banner02.jpg');">
     <div class="container text-center">
         <p class="section-label">The Grand Tradition</p>
         <h1>A Brotherhood Across the Ages</h1>

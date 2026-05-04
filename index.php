@@ -98,6 +98,9 @@ require 'includes/header.php';
     </div>
 </section>
 
+<!-- ── Photo break ───────────────────────────────────────────────────────── -->
+<div class="photo-break" style="--break-img:url('/images/banner05.jpg');" role="img" aria-label="Guilford Lodge #656"></div>
+
 <!-- ── About snapshot ────────────────────────────────────────────────────── -->
 <section class="section section-medium pattern-bg">
     <div class="container">
@@ -194,13 +197,58 @@ require 'includes/header.php';
     </div>
 </section>
 
+<!-- ── Brotherly Love and Friendship ─────────────────────────────────────── -->
+<section class="section section-medium pattern-bg">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+
+                <p class="section-label text-center">The Heart of the Craft</p>
+                <h2 class="section-title text-center mb-5">Brotherly Love and Friendship</h2>
+
+                <p style="font-size:1.15rem;color:var(--cream);line-height:1.85;">
+                    Masonry attracts people of many demographics — different ages, religions, economic
+                    backgrounds, races, and sexual orientations. Yet despite this diverse membership,
+                    or in honor of it, the one thing that binds all of us together is brotherly love
+                    and friendship.
+                </p>
+
+                <hr class="gold-divider">
+
+                <p>
+                    Despite the wonders of technology, and indeed perhaps because of it, men today
+                    are lonelier now than ever before in history. We exist in a world depleted of
+                    third spaces. We have home and work and then nothing. Instead of community centers,
+                    we have message boards. Instead of fellowship at the cafeteria, we have video games.
+                    And tainting these virtual spaces are agendas of hatred and division.
+                </p>
+
+                <div class="lodge-quote my-5">
+                    <blockquote>
+                        In this lodge, we cultivate a safe island of community and fellowship
+                        in an otherwise desolate sea of isolation.
+                    </blockquote>
+                    <cite>Guilford Lodge #656 &mdash; Greensboro, North Carolina</cite>
+                </div>
+
+                <p>
+                    Mentorship, friendship, brotherhood — that is what Masonry has to offer.
+                    We hope to assuage this crisis of loneliness and spread brotherly love amongst
+                    any demographic, to those who need it most.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- ── CTA ───────────────────────────────────────────────────────────────── -->
 <section class="cta-banner pattern-bg">
     <div class="container">
         <p class="section-label">Begin Your Journey</p>
-        <h2>Are You Ready to Seek the Light?</h2>
+        <h2>Are You Ready to Find out More?</h2>
         <p class="text-center">
-            If you are a man of good character, believe in a Supreme Being, and feel the pull
+            If you are a man of good character and feel the pull
             of something greater — we invite you to reach out. The door is open.
         </p>
         <a href="/contact" class="btn btn-gold">Contact Guilford Lodge #656</a>

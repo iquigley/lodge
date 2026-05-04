@@ -11,6 +11,14 @@
                 <p class="mt-3" style="font-size:0.85rem;color:var(--cream-muted);">
                     Founded in 1923, Guilford Lodge #656 continues a tradition of brotherhood, charity, and truth under the Grand Lodge of North Carolina.
                 </p>
+                <div class="social-links mt-3">
+                    <a href="https://www.facebook.com/guilford656" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Guilford Lodge #656 on Facebook">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a href="https://www.instagram.com/guilfordlodge656/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Guilford Lodge #656 on Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                </div>
             </div>
 
             <!-- Navigation column -->
@@ -41,7 +49,20 @@
                 <div class="footer-heading">Contact</div>
                 <ul class="footer-links">
                     <li><a href="/contact">Inquire About Joining</a></li>
-                    <li><a href="mailto:secretary@guilford656.org">Email the Secretary</a></li>
+                    <li><a href="mailto:guilford656@gmail.com">Email the Secretary</a></li>
+                </ul>
+                <div class="footer-heading mt-4">Follow Us</div>
+                <ul class="footer-links">
+                    <li>
+                        <a href="https://www.facebook.com/guilford656" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-facebook me-1"></i> Facebook
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/guilfordlodge656/" target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-instagram me-1"></i> Instagram
+                        </a>
+                    </li>
                 </ul>
                 <div class="mt-3" style="font-size:0.8rem;color:var(--cream-muted);">
                     Grand Lodge of<br>

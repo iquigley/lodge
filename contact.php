@@ -60,18 +60,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Send email if no errors
         if (empty($errors)) {
 
-            // Check that composer autoload is available
-            $autoload = __DIR__ . '/vendor/autoload.php';
-            if (!file_exists($autoload)) {
-                $errors[] = 'Email system not yet configured. Please email us directly at ' . LODGE_RECIPIENT_EMAIL;
-            } else {
-                require $autoload;
+            $full_name = $old['first_name'] . ' ' . $old['last_name'];
+            $reply_to  = $_POST['email'];
 
-                $full_name  = $old['first_name'] . ' ' . $old['last_name'];
-                $reply_to   = $_POST['email'];
+            $boundary = md5(uniqid(strval(time()), true));
 
-                $body_html = "
-<html><body style='font-family:sans-serif;color:#222;'>
+            $headers  = "From: " . FROM_NAME . " <" . FROM_EMAIL . ">\r\n";
+            $headers .= "Reply-To: {$full_name} <{$reply_to}>\r\n";
+            $headers .= "MIME-Version: 1.0\r\n";
+            $headers .= "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n";
+
+            $body_plain = "New Petition of Interest — Guilford Lodge #656\r\n\r\n"
+                . "Name:       {$full_name}\r\n"
+                . "Email:      {$reply_to}\r\n"
+                . "Phone:      " . ($old['phone'] ?: 'Not provided') . "\r\n"
+                . "City/State: {$old['city_state']}\r\n"
+                . "Age:        {$old['age']}\r\n"
+                . "How heard:  {$old['referral']}\r\n\r\n"
+                . "Message:\r\n{$old['message']}\r\n\r\n"
+                . "Submitted: " . date('F j, Y \a\t g:i a');
+
+            $body_html = "<html><body style='font-family:sans-serif;color:#222;'>
 <h2 style='color:#7a5c00;'>New Petition of Interest — Guilford Lodge #656</h2>
 <table cellpadding='8' style='border-collapse:collapse;width:100%;max-width:580px;'>
   <tr><td style='border-bottom:1px solid #eee;font-weight:bold;width:160px;'>Name</td><td style='border-bottom:1px solid #eee;'>" . htmlspecialchars($full_name) . "</td></tr>
@@ -85,36 +94,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <p style='margin-top:24px;font-size:0.85em;color:#888;'>Submitted via guilford656.org on " . date('F j, Y \a\t g:i a') . "</p>
 </body></html>";
 
-                $body_plain = "New Petition of Interest — Guilford Lodge #656\n\n"
-                    . "Name:       {$full_name}\n"
-                    . "Email:      {$reply_to}\n"
-                    . "Phone:      " . ($old['phone'] ?: 'Not provided') . "\n"
-                    . "City/State: {$old['city_state']}\n"
-                    . "Age:        {$old['age']}\n"
-                    . "How heard:  {$old['referral']}\n\n"
-                    . "Message:\n{$old['message']}\n\n"
-                    . "Submitted: " . date('F j, Y \a\t g:i a');
+            $body  = "--{$boundary}\r\n";
+            $body .= "Content-Type: text/plain; charset=UTF-8\r\n\r\n";
+            $body .= $body_plain . "\r\n";
+            $body .= "--{$boundary}\r\n";
+            $body .= "Content-Type: text/html; charset=UTF-8\r\n\r\n";
+            $body .= $body_html . "\r\n";
+            $body .= "--{$boundary}--";
 
-                $email = new \SendGrid\Mail\Mail();
-                $email->setFrom(FROM_EMAIL, FROM_NAME);
-                $email->setSubject("Petition of Interest: {$full_name}");
-                $email->addTo(LODGE_RECIPIENT_EMAIL, LODGE_RECIPIENT_NAME);
-                $email->setReplyTo($reply_to, $full_name);
-                $email->addContent('text/plain', $body_plain);
-                $email->addContent('text/html',  $body_html);
+            $subject = "Petition of Interest: {$full_name}";
 
-                $sg       = new \SendGrid(SENDGRID_API_KEY);
-                $response = $sg->send($email);
-
-                if ($response->statusCode() >= 200 && $response->statusCode() < 300) {
-                    // Regenerate CSRF token and redirect to confirmation
-                    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
-                    $_SESSION['form_submitted'] = true;
-                    header('Location: /confirmation');
-                    exit;
-                } else {
-                    $errors[] = 'There was a problem sending your message. Please try again or email us directly at ' . LODGE_RECIPIENT_EMAIL . '.';
-                }
+            if (mail(LODGE_RECIPIENT_EMAIL, $subject, $body, $headers)) {
+                $_SESSION['csrf_token']    = bin2hex(random_bytes(32));
+                $_SESSION['form_submitted'] = true;
+                header('Location: /confirmation');
+                exit;
+            } else {
+                $errors[] = 'There was a problem sending your message. Please email us directly at ' . LODGE_RECIPIENT_EMAIL . '.';
             }
         }
     }
@@ -124,7 +120,7 @@ require 'includes/header.php';
 ?>
 
 <!-- ── Page Hero ─────────────────────────────────────────────────────────── -->
-<header class="page-hero pattern-bg" style="padding-top:9rem;padding-bottom:4rem;">
+<header class="page-hero pattern-bg" style="padding-top:9rem;padding-bottom:4rem;--page-bg:url('/images/banner04.jpg');">
     <div class="container text-center">
         <p class="section-label">Seek the Light</p>
         <h1>Petition to Join</h1>
@@ -310,8 +306,8 @@ require 'includes/header.php';
                     <p style="color:var(--cream-muted);font-size:0.9rem;">
                         Prefer to write directly? You may reach the lodge secretary at:
                     </p>
-                    <a href="mailto:secretary@guilford656.org" class="text-gold" style="word-break:break-all;">
-                        secretary@guilford656.org
+                    <a href="mailto:guilford656@gmail.com" class="text-gold" style="word-break:break-all;">
+                        guilford656@gmail.com
                     </a>
                     <p class="mt-3" style="color:var(--cream-muted);font-size:0.9rem;">
                         <i class="bi bi-geo-alt-fill text-gold me-1"></i>

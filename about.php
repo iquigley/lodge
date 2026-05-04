@@ -3,11 +3,25 @@ $page_title       = 'About Guilford Lodge #656 | Freemasons of Greensboro, NC';
 $page_description = 'Guilford Lodge #656 was chartered in 1923 and meets in Greensboro, NC on the first and third Monday of each month at 426 West Market Street. Learn about our lodge, our values, and our community.';
 $page_canonical   = '/about';
 $page_active      = 'about';
+
+// Dynamically load all images from the slideshow folder
+$slideshow_path = __DIR__ . '/images/slideshow/';
+$slide_exts     = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+$slides         = [];
+if (is_dir($slideshow_path)) {
+    $files = scandir($slideshow_path);
+    foreach ($files as $file) {
+        if (in_array(strtolower(pathinfo($file, PATHINFO_EXTENSION)), $slide_exts)) {
+            $slides[] = '/images/slideshow/' . htmlspecialchars($file);
+        }
+    }
+}
+
 require 'includes/header.php';
 ?>
 
 <!-- ── Page Hero ─────────────────────────────────────────────────────────── -->
-<header class="page-hero pattern-bg" style="padding-top:9rem;">
+<header class="page-hero pattern-bg" style="padding-top:9rem;--page-bg:url('/images/banner03.jpg');">
     <div class="container text-center">
         <p class="section-label">Greensboro, North Carolina</p>
         <h1>Guilford Lodge #656</h1>
@@ -73,12 +87,11 @@ require 'includes/header.php';
                     <p>
                         More than one hundred years later, that belief remains the foundation
                         of everything we do. Our lodge has weathered wars, depressions, and the
-                        upheavals of a changing world — always maintaining the three great lights
-                        of Masonry: the Holy Bible, the Square, and the Compass.
+                        upheavals of a changing world.
                     </p>
                     <p>
                         Our members come from all walks of life — business owners, veterans,
-                        educators, tradesmen, physicians, and retirees — united by the
+                        educators, college students, tradesmen, physicians, and retirees — united by the
                         conviction that every man can improve himself, and that he improves
                         most surely in the company of brothers who hold him to a higher standard.
                     </p>
@@ -133,6 +146,52 @@ require 'includes/header.php';
         </div>
     </section>
 
+    <!-- ── Slideshow ────────────────────────────────────────────────────── -->
+    <?php if (!empty($slides)): ?>
+    <section class="section-dark py-5" style="border-top:1px solid var(--border-gold);border-bottom:1px solid var(--border-gold);">
+        <div class="container">
+            <p class="section-label text-center mb-2">Life at the Lodge</p>
+            <h2 class="section-title text-center mb-4">Our Lodge in Pictures</h2>
+        </div>
+        <div class="lodge-carousel-wrap">
+            <div id="lodgeSlideshow" class="carousel slide" data-bs-ride="carousel" data-bs-interval="5000">
+
+                <div class="carousel-indicators">
+                    <?php foreach ($slides as $i => $slide): ?>
+                    <button type="button"
+                            data-bs-target="#lodgeSlideshow"
+                            data-bs-slide-to="<?= $i ?>"
+                            <?= $i === 0 ? 'class="active" aria-current="true"' : '' ?>
+                            aria-label="Slide <?= $i + 1 ?>"></button>
+                    <?php endforeach; ?>
+                </div>
+
+                <div class="carousel-inner">
+                    <?php foreach ($slides as $i => $slide): ?>
+                    <div class="carousel-item <?= $i === 0 ? 'active' : '' ?>">
+                        <img src="<?= $slide ?>"
+                             class="d-block w-100"
+                             alt="Guilford Lodge #656 — photo <?= $i + 1 ?>"
+                             width="1200" height="750"
+                             loading="<?= $i === 0 ? 'eager' : 'lazy' ?>">
+                    </div>
+                    <?php endforeach; ?>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#lodgeSlideshow" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#lodgeSlideshow" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
+
+            </div>
+        </div>
+    </section>
+    <?php endif; ?>
+
     <!-- ── Meeting Info ──────────────────────────────────────────────────── -->
     <section class="section section-medium pattern-bg">
         <div class="container">
@@ -149,7 +208,7 @@ require 'includes/header.php';
                             <strong>1st &amp; 3rd Monday</strong> of every month
                         </p>
                         <p class="mb-0" style="color:var(--cream-muted);font-size:0.9rem;">
-                            Doors open at 7:00 p.m. &mdash; Stated Communication begins at 7:30 p.m.
+                            Doors open at 6:00 p.m. &mdash; Dinner starts at 6:15 p.m. ($10 donation request). Stated Communication begins at 7:00 p.m.
                         </p>
                     </div>
 
@@ -223,6 +282,30 @@ require 'includes/header.php';
                     </div>
                 </div>
             </div>
+
+            <!-- Inclusive membership statement -->
+            <div class="row justify-content-center mt-5">
+                <div class="col-lg-9">
+                    <div class="lodge-quote" style="border-left-color:var(--gold);text-align:left;">
+                        <div style="display:flex;align-items:flex-start;gap:1.25rem;">
+                            <i class="bi bi-people-fill" style="font-size:1.75rem;color:var(--gold);flex-shrink:0;margin-top:0.15rem;"></i>
+                            <div>
+                                <p style="color:var(--cream);font-size:1.05rem;margin-bottom:0.75rem;">
+                                    Guilford Lodge #656 welcomes petitioners of every background.
+                                    We do not discriminate on the basis of age, religious affiliation,
+                                    political association, race, or sexual orientation.
+                                </p>
+                                <p style="color:var(--cream-muted);margin-bottom:0;font-size:0.95rem;">
+                                    Our current membership spans generations — from brothers in their twenties
+                                    to brothers in their nineties — united not by what makes them different,
+                                    but by the shared values that brought them to the lodge door.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="text-center mt-5">
                 <a href="/contact" class="btn btn-gold">Submit Your Petition</a>
             </div>

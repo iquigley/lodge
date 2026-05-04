@@ -2,10 +2,6 @@
     "name": "guilford656/website",
     "description": "Guilford Lodge #656 brochure website",
     "require": {
-        "php": ">=7.4",
-        "sendgrid/sendgrid": "^8.0"
-    },
-    "config": {
-        "optimize-autoloader": true
+        "php": ">=7.4"
     }
 }

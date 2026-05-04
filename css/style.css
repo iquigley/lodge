@@ -163,7 +163,7 @@ p { color: var(--cream-muted); }
     justify-content: center;
     background:
         linear-gradient(160deg, rgba(7,9,15,0.97) 0%, rgba(13,18,32,0.92) 50%, rgba(7,9,15,0.97) 100%),
-        url('/images/hero-bg.jpg') center center / cover no-repeat;
+        url('/images/banner01.jpg') center center / cover no-repeat;
     position: relative;
     overflow: hidden;
     text-align: center;
@@ -372,11 +372,23 @@ p { color: var(--cream-muted); }
     padding: 8rem 0 5rem;
     background:
         linear-gradient(160deg, rgba(7,9,15,0.96) 0%, rgba(13,18,32,0.92) 100%),
-        url('/images/history-bg.jpg') center / cover no-repeat;
+        var(--page-bg, none) center / cover no-repeat;
     text-align: center;
     border-bottom: 1px solid var(--border-gold);
 }
 .page-hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); }
+
+/* ── Photo break ────────────────────────────────────────────────────────── */
+.photo-break {
+    height: 340px;
+    background:
+        linear-gradient(rgba(7,9,15,0.45), rgba(7,9,15,0.45)),
+        var(--break-img) center / cover no-repeat;
+    background-attachment: fixed;
+}
+@media (max-width: 768px) {
+    .photo-break { height: 220px; background-attachment: scroll; }
+}
 
 .history-section { border-left: 1px solid var(--border-gold); padding-left: 2rem; margin-left: 1rem; }
 .history-section + .history-section { margin-top: 3rem; }
@@ -547,6 +559,26 @@ p { color: var(--cream-muted); }
 .footer-links a:hover { color: var(--gold); }
 .footer-info { color: var(--cream-muted); font-size: 0.9rem; line-height: 1.8; }
 .footer-info strong { color: var(--cream); }
+/* ── Social links ───────────────────────────────────────────────────────── */
+.social-links { display: flex; gap: 0.6rem; }
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--border-gold);
+    border-radius: 2px;
+    color: var(--cream-muted);
+    font-size: 1.1rem;
+    transition: all var(--transition);
+}
+.social-link:hover {
+    background: var(--gold-glow);
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
 .footer-bottom {
     margin-top: 3rem;
     padding-top: 1.5rem;
@@ -554,6 +586,49 @@ p { color: var(--cream-muted); }
     text-align: center;
     font-size: 0.8rem;
     color: var(--cream-muted);
+}
+
+/* ── Lodge Slideshow ────────────────────────────────────────────────────── */
+.lodge-carousel-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+    border: 1px solid var(--border-gold);
+    border-radius: 4px;
+    overflow: hidden;
+}
+.lodge-carousel-wrap .carousel-item img {
+    aspect-ratio: 1200 / 750;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.lodge-carousel-wrap .carousel-indicators [data-bs-target] {
+    background-color: var(--gold);
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: none;
+    transition: opacity var(--transition);
+}
+.lodge-carousel-wrap .carousel-indicators .active {
+    opacity: 1;
+}
+.lodge-carousel-wrap .carousel-control-prev,
+.lodge-carousel-wrap .carousel-control-next {
+    width: 3.5rem;
+    background: rgba(7, 9, 15, 0.55);
+    opacity: 1;
+    transition: background var(--transition);
+}
+.lodge-carousel-wrap .carousel-control-prev:hover,
+.lodge-carousel-wrap .carousel-control-next:hover {
+    background: rgba(201, 162, 39, 0.25);
+}
+.lodge-carousel-wrap .carousel-control-prev-icon,
+.lodge-carousel-wrap .carousel-control-next-icon {
+    filter: invert(75%) sepia(60%) saturate(500%) hue-rotate(5deg);
 }
 
 /* ── Responsive ─────────────────────────────────────────────────────────── */
