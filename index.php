@@ -22,7 +22,7 @@ require 'includes/header.php';
         </p>
 
         <div class="d-flex flex-wrap gap-3 justify-content-center">
-            <a href="/contact" class="btn btn-gold">Petition to Join</a>
+            <a href="/contact" class="btn btn-gold">Contact Us to Join</a>
             <a href="/history" class="btn btn-outline-gold">Explore Our History</a>
         </div>
     </div>
