@@ -6,6 +6,7 @@ define('CC_EMAIL',              'ikequigley@gmail.com');
 define('FROM_EMAIL',            'ikequigley@gmail.com');
 define('FROM_NAME',             'Guilford Lodge #656 Website');
 define('CONTACT_PHONE',         '(919) 244-7275');
+define('LODGE_SECRETARY',       'Dan Hudson');
 
 define('SITE_URL',  'https://guilford656.org');
 define('SITE_NAME', 'Guilford Lodge #656');

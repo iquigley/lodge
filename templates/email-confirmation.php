@@ -122,8 +122,8 @@
             </td>
             <td style="padding-left:12px;">
               <p style="margin:0;font-size:14px;color:#333333;line-height:1.6;">
-                <strong style="color:#0d1220;">A formal petition</strong> and background process follows,
-                handled with full confidentiality.
+                <strong style="color:#0d1220;">If you decide to join, a formal petition</strong> and background process follows,
+                handled with full confidentiality. Please note there is a petition fee required.
               </p>
             </td>
           </tr>
@@ -167,7 +167,7 @@
           directly at
           <a href="mailto:guilford656@gmail.com" style="color:#c9a227;text-decoration:none;">
             guilford656@gmail.com
-          </a>.
+          </a>, or call/text our lodge secretary, <?= LODGE_SECRETARY; ?> at <?= CONTACT_PHONE; ?> directly.
         </p>
 
       </td>
