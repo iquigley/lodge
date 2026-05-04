@@ -67,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             $headers  = "From: " . FROM_NAME . " <" . FROM_EMAIL . ">\r\n";
             $headers .= "Reply-To: {$full_name} <{$reply_to}>\r\n";
-            $headers .= "To: " . LODGE_RECIPIENT_NAME . " <" . LODGE_RECIPIENT_EMAIL . ">\r\n";
             $headers .= "Cc: " . CC_EMAIL . "\r\n";
             $headers .= "MIME-Version: 1.0\r\n";
             $headers .= "Content-Type: multipart/alternative; boundary=\"{$boundary}\"\r\n";
