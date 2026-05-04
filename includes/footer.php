@@ -9,7 +9,7 @@
                 <div class="footer-lodge-name">Guilford Lodge #656</div>
                 <div class="footer-tagline">Ancient Free &amp; Accepted Masons<br>Greensboro, North Carolina</div>
                 <p class="mt-3" style="font-size:0.85rem;color:var(--cream-muted);">
-                    Founded in 1923, Guilford Lodge #656 continues a tradition of brotherhood, charity, and truth under the Grand Lodge of North Carolina.
+                    Founded in 1923, Guilford Lodge #656 continues a tradition of brotherhood, charity, and truth under the <a href="https://www.ncfreemasons.org/" target="_blank">Grand Lodge of North Carolina</a>.
                 </p>
                 <div class="social-links mt-3">
                     <a href="https://www.facebook.com/guilford656" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Guilford Lodge #656 on Facebook">
@@ -65,7 +65,7 @@
                     </li>
                 </ul>
                 <div class="mt-3" style="font-size:0.8rem;color:var(--cream-muted);">
-                    Grand Lodge of<br>
+                    <a href="https://www.ncfreemasons.org/" target="_blank">Grand Lodge</a> of<br>
                     North Carolina A.F. &amp; A.M.
                 </div>
             </div>
