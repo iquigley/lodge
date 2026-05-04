@@ -36,8 +36,8 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="footer-heading">Lodge Meetings</div>
                 <div class="footer-info">
-                    <strong>1st &amp; 3rd Monday</strong> of each month<br>
-                    Stated Communications at 7:30 p.m.<br><br>
+                    <strong>1st &amp; 3rd Monday</strong> of each month (excluding July)<br>
+                    Stated Communications at 7:00 p.m.<br><br>
                     <strong>Masonic Temple</strong><br>
                     426 West Market Street<br>
                     Greensboro, NC 27401
