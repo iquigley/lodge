@@ -17,7 +17,28 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
+// Record when the form was loaded so we can reject instant (bot) submissions
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    $_SESSION['form_loaded_at'] = time();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Honeypot: hidden field humans never fill in; bots do
+    if (!empty($_POST['website'])) {
+        $_SESSION['csrf_token']     = bin2hex(random_bytes(32));
+        $_SESSION['form_submitted'] = true;
+        header('Location: /confirmation');
+        exit;
+    }
+
+    // Timing: real humans take more than 3 seconds to fill out a form
+    if ((time() - ($_SESSION['form_loaded_at'] ?? 0)) < 3) {
+        $_SESSION['csrf_token']     = bin2hex(random_bytes(32));
+        $_SESSION['form_submitted'] = true;
+        header('Location: /confirmation');
+        exit;
+    }
 
     // CSRF check
     if (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {
@@ -220,6 +241,12 @@ require 'includes/header.php';
 
                     <form method="POST" action="/contact" novalidate>
                         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+
+                        <!-- Honeypot: hidden from humans via CSS; bots fill it in -->
+                        <div style="position:absolute;left:-9999px;top:-9999px;" aria-hidden="true">
+                            <label for="website">Website</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
 
                         <!-- Name -->
                         <div class="row g-3 mb-3">
